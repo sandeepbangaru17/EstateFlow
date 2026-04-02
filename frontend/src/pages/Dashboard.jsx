@@ -18,6 +18,8 @@ export default function Dashboard() {
   const [location, setLocation] = useState('');
   const [type, setType] = useState('Villa');
   const [description, setDescription] = useState('');
+  const [imageFile, setImageFile] = useState(null);
+  
   const [createLoading, setCreateLoading] = useState(false);
   const [createMsg, setCreateMsg] = useState('');
 
@@ -56,18 +58,33 @@ export default function Dashboard() {
     try {
       if (!session) throw new Error("You must be signed in to post.");
       
+      let imageUrl = null;
+      if (imageFile) {
+        setCreateMsg("Uploading high-res image to the cloud...");
+        const fileExt = imageFile.name.split('.').pop();
+        const fileName = `${Math.random().toString(36).substring(2, 15)}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage.from('property-images').upload(fileName, imageFile);
+        if (uploadError) throw new Error(`Image Upload Failed: ${uploadError.message}`);
+        
+        const { data: publicUrlData } = supabase.storage.from('property-images').getPublicUrl(fileName);
+        imageUrl = publicUrlData.publicUrl;
+      }
+      
+      setCreateMsg("Publishing listing to database...");
       const payload = {
         title,
         price: parseFloat(price),
         location,
         type,
-        description
+        description,
+        image_url: imageUrl
       };
       
-      // Pass the JWT Session token directly into the 
+      // Pass the JWT Session token directly into the API
       await createProperty(payload, session.access_token);
       setCreateMsg("Property published successfully to the FastAPI & Redis!");
-      setTitle(''); setPrice(''); setLocation(''); setDescription('');
+      setTitle(''); setPrice(''); setLocation(''); setDescription(''); setImageFile(null);
     } catch (err) {
       setCreateMsg(`Error: ${err.message}`);
     } finally {
@@ -159,6 +176,16 @@ export default function Dashboard() {
               rows="5"
               style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)', fontFamily: 'inherit', resize: 'vertical' }}
             ></textarea>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+              <label style={{ fontSize: '0.9rem', color: 'var(--color-text-light)', fontWeight: 600 }}>Cover Image</label>
+              <input 
+                type="file" 
+                accept="image/*"
+                onChange={e => setImageFile(e.target.files[0])}
+                style={{ padding: '0.75rem', borderRadius: 'var(--radius-md)', border: '1px dashed var(--color-border)' }}
+              />
+            </div>
 
             <button type="submit" disabled={createLoading} className="btn btn-primary" style={{ alignSelf: 'flex-start', fontSize: '1.1rem', padding: '0.75rem 2rem' }}>
               {createLoading ? 'Publishing to Network...' : 'Publish Property Listing'}

@@ -60,8 +60,13 @@ export default function HomePage() {
           }}>
             {properties.slice(0, 6).map((prop) => (
               <div key={prop.id} className="glass hover-lift" style={{ borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
-                <div style={{ height: '200px', backgroundColor: 'var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <span style={{color: 'var(--color-text-light)'}}>Property Image</span>
+                {/* Cloud Image Rendering */}
+                <div style={{ height: '200px', backgroundColor: 'var(--color-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  {prop.image_url ? (
+                    <img src={prop.image_url} alt={prop.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                  ) : (
+                    <span style={{color: 'var(--color-text-light)'}}>No Image</span>
+                  )}
                 </div>
                 <div style={{ padding: '1.5rem' }}>
                   <h3 style={{ marginBottom: '0.5rem' }}>{prop.title}</h3>
