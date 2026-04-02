@@ -27,6 +27,12 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
+# Import the router at the top or inside to avoid circular imports if any, but since we just wrote it:
+from app.api import properties
+
+# Include Routers
+app.include_router(properties.router, prefix="/api/v1")
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to EstateFlow API"}
