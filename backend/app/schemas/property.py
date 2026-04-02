@@ -27,9 +27,9 @@ class PropertyUpdate(BaseModel):
 
 class PropertyInDB(PropertyBase):
     id: str  # UUID
-    owner_id: str
-    approved: bool
-    created_at: datetime
+    owner_id: Optional[str] = None
+    approved: Optional[bool] = None
+    created_at: Optional[datetime] = None
     
     model_config = ConfigDict(from_attributes=True)
 
