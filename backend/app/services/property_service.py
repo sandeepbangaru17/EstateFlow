@@ -5,18 +5,35 @@ from app.services.cache_service import get_cache, set_cache, invalidate_cache_pa
 
 CACHE_TTL = 900 # 15 minutes cache for properties
 
-async def get_all_properties() -> List[PropertyInDB]:
-    cache_key = "properties:all"
+async def get_all_properties(location: Optional[str] = None, type: Optional[str] = None) -> List[PropertyInDB]:
+    # Build a deterministic cache key based on filters
+    cache_key = f"properties:all:loc={location or 'any'}:type={type or 'any'}"
     cached_data = await get_cache(cache_key)
     if cached_data:
         return [PropertyInDB(**item) for item in cached_data]
     
     # Query Supabase: Only return approved properties
-    response = supabase_client.table("properties").select("*").eq("approved", True).execute()
+    query = supabase_client.table("properties").select("*").eq("approved", True)
+    
+    if location and location.lower() != "any":
+        query = query.ilike("location", f"%{location}%")
+    if type and type != "Any Type":
+        query = query.eq("type", type)
+        
+    response = query.execute()
     properties = response.data
     
     await set_cache(cache_key, properties, CACHE_TTL)
     return [PropertyInDB(**p) for p in properties]
+
+async def create_inquiry(property_id: str, email: str, message: str) -> bool:
+    data = {
+        "property_id": property_id,
+        "user_email": email,
+        "message": message
+    }
+    response = supabase_client.table("inquiries").insert(data).execute()
+    return len(response.data) > 0
 
 async def get_property_by_id(property_id: str) -> Optional[PropertyInDB]:
     cache_key = f"property:{property_id}"

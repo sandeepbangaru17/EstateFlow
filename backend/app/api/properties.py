@@ -1,15 +1,26 @@
-from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status
-from app.schemas.property import PropertyCreate, PropertyUpdate, PropertyResponse
+from typing import Optional, List
+from fastapi import APIRouter, Depends, Query, HTTPException, status
+from app.schemas.property import PropertyCreate, PropertyUpdate, PropertyResponse, InquiryCreate
 from app.services import property_service
 from app.core.auth import TokenData, get_current_user, require_admin
 
 router = APIRouter(prefix="/properties", tags=["Properties"])
 
 @router.get("/", response_model=List[PropertyResponse])
-async def list_properties():
-    """Get all approved properties (Cached)."""
-    return await property_service.get_all_properties()
+async def list_properties(
+    location: Optional[str] = Query(None, description="Filter by location"),
+    type: Optional[str] = Query(None, description="Filter by property type")
+):
+    """Get all approved properties (Cached, supports filtering)."""
+    return await property_service.get_all_properties(location=location, type=type)
+
+@router.post("/{property_id}/inquire", status_code=status.HTTP_201_CREATED)
+async def inquire_property(property_id: str, inquiry: InquiryCreate):
+    """Submit an inquiry to contact the agent about a property."""
+    success = await property_service.create_inquiry(property_id, inquiry.user_email, inquiry.message)
+    if not success:
+        raise HTTPException(status_code=400, detail="Failed to send inquiry")
+    return {"message": "Inquiry sent successfully"}
 
 @router.get("/{property_id}", response_model=PropertyResponse)
 async def get_property(property_id: str):

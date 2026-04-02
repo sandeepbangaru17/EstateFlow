@@ -8,9 +8,14 @@ class PropertyBase(BaseModel):
     price: float
     location: str
     type: str
+    image_url: Optional[str] = None
 
 class PropertyCreate(PropertyBase):
     pass
+
+class InquiryCreate(BaseModel):
+    user_email: str
+    message: str
 
 class PropertyUpdate(BaseModel):
     title: Optional[str] = None
