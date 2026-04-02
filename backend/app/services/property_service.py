@@ -12,8 +12,8 @@ async def get_all_properties(location: Optional[str] = None, type: Optional[str]
     if cached_data:
         return [PropertyInDB(**item) for item in cached_data]
     
-    # Query Supabase: Only return approved properties
-    query = supabase_client.table("properties").select("*").eq("approved", True)
+    # Query Supabase for all properties
+    query = supabase_client.table("properties").select("*")
     
     if location and location.lower() != "any":
         query = query.ilike("location", f"%{location}%")
