@@ -19,6 +19,12 @@ export async function fetchProperties(location = '', type = '') {
   return response.json();
 }
 
+export async function fetchPropertyById(id) {
+  const response = await fetch(`${API_BASE_URL}/properties/${id}`);
+  if (!response.ok) throw new Error('Failed to fetch property details');
+  return response.json();
+}
+
 export async function sendInquiry(propertyId, userEmail, message) {
   const response = await fetch(`${API_BASE_URL}/properties/${propertyId}/inquire`, {
     method: 'POST',

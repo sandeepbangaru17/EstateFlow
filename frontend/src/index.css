@@ -1,19 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Earthy & Grounded Palette */
-  --color-bg: #FAF9F6;
-  --color-surface: #FFFFFF;
-  --color-primary: #8C7A6B; /* Warm Brown */
-  --color-primary-dark: #6B5C50;
-  --color-accent: #687980; /* Smoky Blue */
-  --color-text: #2D3748; /* Slate Gray */
-  --color-text-light: #718096;
-  --color-border: #E2E8F0;
+  /* Dark Luxury Palette */
+  --color-bg: #0B0F19; /* Obsidian Black */
+  --color-surface: #151A26; /* Deep Slate */
+  --color-primary: #D4AF37; /* Champagne Gold */
+  --color-primary-dark: #B5952F;
+  --color-accent: #2A3143; /* Platinum Slate */
+  --color-text: #F8FAFC; /* Premium White */
+  --color-text-light: #94A3B8; /* Muted Silver */
+  --color-border: rgba(212, 175, 55, 0.15); /* Gold Tinted Border */
   
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
+  --shadow-gold: 0 4px 20px rgba(212, 175, 55, 0.15); /* Glowing Gold Shadow */
   
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
@@ -30,8 +31,9 @@ body {
   font-family: 'Outfit', sans-serif;
   background-color: var(--color-bg);
   color: var(--color-text);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  /* Add a subtle luxury noise texture via CSS gradient if desired, keeping it clean for now */
 }
 
 a {
@@ -46,27 +48,49 @@ button {
   background: none;
 }
 
+input, select, textarea {
+  color: var(--color-text);
+  background-color: var(--color-surface);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--color-text-light);
+}
+
 .title {
   color: var(--color-text);
-  font-weight: 600;
+  font-weight: 300; /* Thinner weights look more premium */
+  letter-spacing: -0.02em;
   line-height: 1.2;
 }
 
-/* Glassmorphism Class */
+/* Luxury Glassmorphism */
 .glass {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(21, 26, 38, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-md);
 }
 
 /* Dynamic Hover Effects */
 .hover-lift {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
 }
 .hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-gold);
+  border-color: rgba(212, 175, 55, 0.3); /* Gold border on hover */
+}
+
+/* Animations */
+@keyframes fadeInSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeInSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Generic Layout Utilities */
@@ -77,22 +101,28 @@ button {
   padding: 0 1.5rem;
 }
 
-/* Basic Button Defaults */
+/* Premium Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-md);
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-sm); /* Sharper borders = more modern */
   font-weight: 500;
-  transition: all 0.2s ease;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  transition: all 0.3s ease;
 }
 
 .btn-primary {
   background-color: var(--color-primary);
-  color: white;
+  color: #000; /* High contrast on gold */
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
 }
 
 .btn-primary:hover {
-  background-color: var(--color-primary-dark);
+  background-color: var(--color-text); /* shifts to bright white on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
 }
