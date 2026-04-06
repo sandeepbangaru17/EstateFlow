@@ -51,3 +51,19 @@ export async function createProperty(propertyData, token) {
   }
   return response.json();
 }
+export async function fetchInquiries(token) {
+  const response = await fetch(`${API_BASE_URL}/properties/inquiries`, {
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  if (!response.ok) throw new Error('Failed to fetch inquiries');
+  return response.json();
+}
+
+export async function deleteProperty(id, token) {
+  const response = await fetch(`${API_BASE_URL}/properties/${id}`, {
+    method: 'DELETE',
+    headers: { 'Authorization': `Bearer ${token}` }
+  });
+  if (!response.ok) throw new Error('Failed to delete property');
+  return true;
+}

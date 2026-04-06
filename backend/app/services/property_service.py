@@ -86,3 +86,8 @@ async def delete_property(property_id: str) -> bool:
     await invalidate_cache_pattern("properties:all*")
     
     return len(response.data) > 0
+
+async def get_all_inquiries() -> List[dict]:
+    """Fetch all inquiries from the Supabase 'inquiries' table."""
+    response = supabase_client.table("inquiries").select("*, properties(title)").order("created_at", descending=True).execute()
+    return response.data

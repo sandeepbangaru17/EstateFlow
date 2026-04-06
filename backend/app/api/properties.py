@@ -64,3 +64,8 @@ async def delete_property(
     success = await property_service.delete_property(property_id)
     if not success:
         raise HTTPException(status_code=404, detail="Property not found")
+
+@router.get("/inquiries", response_model=List[dict])
+async def list_inquiries(admin_user: TokenData = Depends(require_admin)):
+    """Fetch all inquiries for leads/contact requests. Requires Admin Role."""
+    return await property_service.get_all_inquiries()
