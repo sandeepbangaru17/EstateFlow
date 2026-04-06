@@ -9,7 +9,8 @@
   --color-accent: #2A3143; /* Platinum Slate */
   --color-text: #F8FAFC; /* Premium White */
   --color-text-light: #94A3B8; /* Muted Silver */
-  --color-border: rgba(212, 175, 55, 0.15); /* Gold Tinted Border */
+  --color-border: rgba(212, 175, 55, 0.2); /* Slightly stronger Gold Tinted Border */
+  --color-gold-gradient: linear-gradient(135deg, #D4AF37 0%, #F8FAFC 50%, #B5952F 100%);
   
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
@@ -59,18 +60,28 @@ input::placeholder, textarea::placeholder {
 
 .title {
   color: var(--color-text);
-  font-weight: 300; /* Thinner weights look more premium */
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-weight: 300; 
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.luxury-text {
+  background: var(--color-gold-gradient);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 600;
+  letter-spacing: 0.1em;
 }
 
 /* Luxury Glassmorphism */
 .glass {
-  background: rgba(21, 26, 38, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: var(--shadow-md);
+  background: rgba(21, 26, 38, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
 }
 
 /* Dynamic Hover Effects */

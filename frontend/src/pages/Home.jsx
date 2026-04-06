@@ -28,15 +28,15 @@ export default function Home() {
           background: 'linear-gradient(to bottom, rgba(11,15,25,0.4) 0%, rgba(11,15,25,1) 100%), url(https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80) center/cover' 
         }}></div>
         
-        <div className="container animate-in" style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-          <h1 className="title" style={{ fontSize: '4.5rem', color: '#fff', marginBottom: '1.5rem', letterSpacing: '-0.03em' }}>
-            Discover Your <br/><span style={{ color: 'var(--color-primary)' }}>Sanctuary.</span>
+        <div className="container animate-in" style={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+          <h1 className="title" style={{ fontSize: '5rem', color: '#fff', marginBottom: '1.5rem', letterSpacing: '-0.04em' }}>
+            The Art of <br/><span className="luxury-text">Living.</span>
           </h1>
-          <p style={{ fontSize: '1.25rem', color: 'var(--color-text-light)', maxWidth: '600px', margin: '0 auto 3rem auto', fontWeight: 300 }}>
-            Exclusive estates, penthouses, and architectural masterpieces curated for the absolute highest standard of living.
+          <p style={{ fontSize: '1.35rem', color: 'var(--color-text-light)', maxWidth: '700px', margin: '0 auto 3.5rem auto', fontWeight: 300, letterSpacing: '0.02em' }}>
+            Curating the World's Most Prestigious Real Estate Collections.
           </p>
-          <Link to="/listings" className="btn btn-primary" style={{ padding: '1rem 3rem', fontSize: '1rem', borderRadius: '0' }}>
-            Enter the Gallery
+          <Link to="/listings" className="btn btn-primary" style={{ padding: '1.25rem 4rem', fontSize: '0.9rem', borderRadius: '0' }}>
+            Explore the Collection
           </Link>
         </div>
       </div>
@@ -67,14 +67,17 @@ export default function Home() {
                     Featured
                   </div>
                 </div>
-                <div style={{ padding: '2rem' }}>
-                  <h3 style={{ marginBottom: '1rem', fontSize: '1.5rem', fontWeight: 400 }}>{prop.title}</h3>
-                  <div style={{ display: 'flex', gap: '1rem', color: 'var(--color-text-light)', marginBottom: '1.5rem', fontSize: '0.9rem' }}>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}><MapPin size={16} /> {prop.location}</span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}><Building size={16} /> {prop.type}</span>
+                <div style={{ padding: '2.5rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
+                    <h3 style={{ fontSize: '1.75rem', fontWeight: 300, letterSpacing: '-0.02em' }}>{prop.title}</h3>
                   </div>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--color-border)', paddingTop: '1.5rem' }}>
-                    <span style={{ fontWeight: 300, color: 'var(--color-primary)', fontSize: '1.25rem' }}>${prop.price.toLocaleString()}</span>
+                  <div style={{ display: 'flex', gap: '1.25rem', color: 'var(--color-text-light)', marginBottom: '2rem', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><MapPin size={14} color="var(--color-primary)" /> {prop.location}</span>
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}><Building size={14} color="var(--color-primary)" /> {prop.type}</span>
+                  </div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--color-border)', paddingTop: '2rem' }}>
+                    <span className="luxury-text" style={{ fontSize: '1.5rem' }}>${prop.price.toLocaleString()}</span>
+                    <span style={{ fontSize: '0.8rem', color: 'var(--color-primary)', border: '1px solid var(--color-primary)', padding: '0.4rem 1rem', textTransform: 'uppercase' }}>Details</span>
                   </div>
                 </div>
               </Link>

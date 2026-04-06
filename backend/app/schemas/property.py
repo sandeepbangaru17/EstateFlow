@@ -8,7 +8,7 @@ class PropertyBase(BaseModel):
     price: float
     location: str
     type: str
-    image_url: Optional[str] = None
+    image_url: Optional[str] = ""
 
 class PropertyCreate(PropertyBase):
     pass

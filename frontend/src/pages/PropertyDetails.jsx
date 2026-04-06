@@ -39,10 +39,10 @@ export default function PropertyDetails() {
         <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, background: 'linear-gradient(to top, rgba(11,15,25,1) 0%, rgba(11,15,25,0.1) 60%)' }}></div>
         <div className="container" style={{ position: 'absolute', bottom: '2rem', left: 0, right: 0 }}>
            <Link to="/listings" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', color: 'var(--color-text-light)', marginBottom: '1.5rem', textTransform: 'uppercase', fontSize: '0.85rem', letterSpacing: '0.1em', transition: 'color 0.2s' }}><ArrowLeft size={16} /> Back to Gallery</Link>
-           <h1 className="title" style={{ fontSize: '4.5rem', color: '#fff', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>{property.title}</h1>
-           <div style={{ display: 'flex', gap: '2rem', color: 'var(--color-text-light)', fontSize: '1.1rem' }}>
-             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><MapPin size={20} /> {property.location}</span>
-             <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Building size={20} /> {property.type}</span>
+           <h1 className="title" style={{ fontSize: '5rem', color: '#fff', marginBottom: '1rem', letterSpacing: '-0.04em' }}>{property.title}</h1>
+           <div style={{ display: 'flex', gap: '2.5rem', color: 'var(--color-text-light)', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+             <span style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><MapPin size={18} color="var(--color-primary)" /> {property.location}</span>
+             <span style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}><Building size={18} color="var(--color-primary)" /> {property.type}</span>
            </div>
         </div>
       </div>
@@ -55,10 +55,10 @@ export default function PropertyDetails() {
            </p>
         </div>
         <div style={{ flex: '1', minWidth: '300px' }}>
-           <div className="glass" style={{ padding: '2.5rem', borderRadius: '0', position: 'sticky', top: '100px', borderTop: '4px solid var(--color-primary)' }}>
-             <p style={{ color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '0.15em', fontSize: '0.85rem', marginBottom: '0.5rem', fontWeight: 600 }}>Offered At</p>
-             <h2 style={{ fontSize: '3rem', fontWeight: 300, color: '#fff', marginBottom: '2.5rem' }}>${property.price.toLocaleString()}</h2>
-             <button onClick={() => setActiveInquiry(true)} className="btn btn-primary" style={{ width: '100%', padding: '1.25rem', fontSize: '1.1rem' }}>Request Private Showing</button>
+           <div className="glass" style={{ padding: '3rem', borderRadius: '0', position: 'sticky', top: '100px', borderLeft: '4px solid var(--color-primary)' }}>
+             <p style={{ color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '0.2em', fontSize: '0.75rem', marginBottom: '1rem', fontWeight: 600 }}>Investment Value</p>
+             <h2 className="luxury-text" style={{ fontSize: '3.5rem', marginBottom: '3rem' }}>${property.price.toLocaleString()}</h2>
+             <button onClick={() => setActiveInquiry(true)} className="btn btn-primary" style={{ width: '100%', padding: '1.5rem', fontSize: '0.9rem', letterSpacing: '0.1em' }}>Secure Private Inspection</button>
            </div>
         </div>
       </div>
